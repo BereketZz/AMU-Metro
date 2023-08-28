@@ -8,10 +8,8 @@ import Footer from "../components/Footer";
 import Link from "next/link";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import { AuthContext } from '../Context/AuthContext';
 import { signOut } from 'firebase/auth';
-import cookies from 'js-cookie'
 import { useRouter } from 'next/router';
 import { updateDoc, onSnapshot, setDoc,doc, arrayUnion, Timestamp, serverTimestamp } from 'firebase/firestore'
 import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
