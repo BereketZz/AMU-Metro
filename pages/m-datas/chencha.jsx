@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { motion } from 'framer-motion'
-import { db } from '../firebase';
+import { db } from '../../firebase';
+
 import { onSnapshot, doc , updateDoc } from "firebase/firestore";
 import { fadeIn, slideIn } from '../../utils/motion'
 import MetroD from '../../components/MetroD'

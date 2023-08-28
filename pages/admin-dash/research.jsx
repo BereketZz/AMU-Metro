@@ -5,7 +5,7 @@ import styles from '../../styles'
 import { footerVariants, navVariants } from '../../utils/motion'
 import Dashboard from '../../components/Dashboard'
 import { AuthContext } from '../../Context/AuthContext'
-import { db , storage} from '../firebase'
+import { db, storage } from '../../firebase'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateDoc, onSnapshot, setDoc,doc, arrayUnion, Timestamp, serverTimestamp } from 'firebase/firestore'

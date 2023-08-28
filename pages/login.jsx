@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Footer from '../components/Footer'
 import { Source } from 'postcss'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from './firebase'
+import { auth } from '../firebase'
 import { useRouter } from 'next/router'
 
 

@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState } from 'react'
 import { useContext } from 'react';
-import { auth, db } from '../firebase';
+import { auth, db, storage } from '../../firebase';
 import { useRouter } from 'next/router';
 import { navVariants, fadeIn, footerVariants } from '../../utils/motion';
 import { updateDoc, onSnapshot, setDoc,doc, arrayUnion, Timestamp, serverTimestamp } from 'firebase/firestore'
@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../../components/Footer';
 import { motion } from "framer-motion";
 import styles from '../../styles';
-import { storage } from '../firebase';
 import Dashboard from '../../components/Dashboard';
 import { AuthContext } from '../../Context/AuthContext';
 import { socials } from '../../constants';

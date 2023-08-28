@@ -36,7 +36,7 @@ className={`${styles.xPaddings} py-5  relative ${isDarkMode?"":"shadow-lg"}`}
             </a>
         
 
-<Link href="/try" type="button" className={`flex items-center p-2 bg-green-900 rounded-lg group`}>
+<Link href="/admin-dash" type="button" className={`flex items-center p-2 bg-green-900 rounded-lg group`}>
          
          <span className="font-normal text-[16px] text-white">
           Sign In
