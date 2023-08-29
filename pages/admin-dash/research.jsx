@@ -64,6 +64,7 @@ function research() {
                         relevance:parseInt(inp.relevance),
                         date:Timestamp.now(),
                         file:downloadURL,
+                        desc:inp.desc
                         
     
     

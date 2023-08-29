@@ -19,21 +19,20 @@ import { AuthContext } from "../Context/AuthContext";
 
 
 function Research() {
-    const[date, setDate]= useState("")
-    const[url, setUrl]= useState(null)
-    const[down, setDown]= useState(null)
-    const[turn, setTurn]=  useState(true)
+    const[data, setData]= useState([])
+  
+
 
     const{isDarkMode, toggleTheme, setIsDarkMode}= useContext(AuthContext)
 
 
     useEffect(()=>{
-        const unSub= onSnapshot(doc(db, "metro","stations"), (doc)=>{
+        const unSub= onSnapshot(doc(db, "research","rcol"), (doc)=>{
          
             if(doc.exists()){
-                setDate(doc.data().am.date)
-                setUrl(doc.data().am.url)
-                setDown(doc.data().count.downloads)
+            
+                setData(doc.data().researchs)
+               
             }  
         })
         return ()=>{
@@ -41,23 +40,26 @@ function Research() {
         }
         },[])
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const handleDownload= async (url)=>{
+        const relevanceSort= ()=>{
+            data.sort((a,b)=>b[1].year-a[1].year)
+        }
+        // const handleDownload= async (url)=>{
             
-            if(url){
-             saveAs(url, 'amu.odt')
-             await updateDoc (doc(db, "metro","stations"), {
-                count: {
-                  downloads:down+1,
+        //     if(url){
+        //      saveAs(url, 'amu.odt')
+        //      await updateDoc (doc(db, "metro","stations"), {
+        //         count: {
+        //           downloads:down+1,
                   
   
-                }
+        //         }
               
                 
-            });
-            }
+        //     });
+        //     }
      
-        }
-        console.log("the data "+url, date)
+        // }
+       console.log(data)
   return (
 
      
@@ -130,7 +132,7 @@ function Research() {
         <div className='flex   gap-3 items-center'>
         <span className={`${isDarkMode?"text-gray-300":"text-gray-700"}`}>Sort by:</span>
         <select id="countries" class={` w-[150px] border-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-900 focus:border-green-900 block w-full p-2.5 ${isDarkMode?" font-bolder dark:bg-primary-black dark:text-white text-[18px] bg-primary-black":"text-black shadow-lg"}  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-green-900 dark:focus:border-green-900`}>
-  <option  value="arbaminch">Relevance</option>
+  <option onClick={relevanceSort}  value="arbaminch">Relevance</option>
   <option value="US">Chencha</option>
   <option value="CA">Zigiti</option>
   <option value="FR">Merab</option>
@@ -143,7 +145,35 @@ function Research() {
     </div>
  
 
-    <div class={`mt-[20px] w-full p-4  bg-white border border-gray-200 rounded-lg shadow sm:p-8  ${isDarkMode?"dark:bg-gray-800":""} dark:border-gray-700`}>
+{data?.map(d=>{
+return <div key={d.id} class={`mt-[20px] w-full p-4  bg-white border border-gray-200 rounded-lg shadow sm:p-8  ${isDarkMode?"dark:bg-gray-800":""} dark:border-gray-700`}>
+<h5 class={`mb-2 text-[22px] font-bold ${isDarkMode?"dark:text-white":"text-black"} `}>{d.title}</h5>
+<p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Author(s):{d.name}</p>
+<p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Publication Year:{d.year}</p>
+<p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Resource Type:Research.</p>
+<p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>{d.desc}</p>
+<div class="items-center  space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+    <a href={`${d.file}`} class={`w-full sm:w-auto  focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 ${isDarkMode?"dark:bg-gray-700 text-white dark:hover:bg-gray-600 ":"shadow-lg text-black hover:text-white hover:bg-green-900"}  dark:focus:ring-gray-700`}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+<path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+
+        <div class="text-left">
+            
+            <div class="-mt-1 font-sans text-sm font-semibold">&nbsp;&nbsp;View PDF</div>
+        </div>
+    </a>
+    <a href="#" class={`w-full sm:w-auto  focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 ${isDarkMode?"dark:bg-gray-700 text-white dark:hover:bg-gray-600 ":"shadow-lg text-black hover:bg-green-900  hover:text-white"}  dark:focus:ring-gray-700`}>
+    <svg class={`w-6 h-6 ${isDarkMode?"dark:text-white":"text-black hover:text-white"} `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+</svg> 
+    </a>
+</div>
+</div>
+}) }
+
+
+{/* <div class={`mt-[20px] w-full p-4  bg-white border border-gray-200 rounded-lg shadow sm:p-8  ${isDarkMode?"dark:bg-gray-800":""} dark:border-gray-700`}>
     <h5 class={`mb-2 text-[22px] font-bold ${isDarkMode?"dark:text-white":"text-black"} `}>On modeling AM city for weather dist</h5>
     <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Author(s): Abebe Gizaw.</p>
     <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Publication Year:2018.</p>
@@ -192,33 +222,7 @@ function Research() {
 </svg> 
         </a>
     </div>
-</div>
-
-
-<div class={`mt-[20px] w-full p-4  bg-white border border-gray-200 rounded-lg shadow sm:p-8  ${isDarkMode?"dark:bg-gray-800":""} dark:border-gray-700`}>
-    <h5 class={`mb-2 text-[22px] font-bold ${isDarkMode?"dark:text-white":"text-black"} `}>On modeling AM city for weather dist</h5>
-    <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Author(s): Abebe Gizaw.</p>
-    <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Publication Year:2018.</p>
-    <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Resource Type:Research.</p>
-    <p class={`mb-5 text-base text-gray-500 sm:text-lg ${isDarkMode?"dark:text-gray-400":"text-gray-900"}`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, expedita ratione magni eius rem in eveniet consequuntur, eligendi exercitationem ad impedit quis excepturi ea natus fugit animi. At qui impedit voluptates. Quibusdam eum facilis harum cum molestias beatae? Vero dolorem impedit accusantium reiciendis labore in perspiciatis dignissimos ratione eligendi iste.</p>
-    <div class="items-center  space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-        <a href="#" class={`w-full sm:w-auto  focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 ${isDarkMode?"dark:bg-gray-700 text-white dark:hover:bg-gray-600 ":"shadow-lg text-black hover:text-white hover:bg-green-900"}  dark:focus:ring-gray-700`}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-</svg>
-
-            <div class="text-left">
-               
-                <div class="-mt-1 font-sans text-sm font-semibold">&nbsp;&nbsp;View PDF</div>
-            </div>
-        </a>
-        <a href="#" class={`w-full sm:w-auto  focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 ${isDarkMode?"dark:bg-gray-700 text-white dark:hover:bg-gray-600 ":"shadow-lg text-black hover:bg-green-900  hover:text-white"}  dark:focus:ring-gray-700`}>
-        <svg class={`w-6 h-6 ${isDarkMode?"dark:text-white":"text-black hover:text-white"} `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
-</svg> 
-        </a>
-    </div>
-</div>
+</div> */}
 
        <motion.footer
     variants={footerVariants}
