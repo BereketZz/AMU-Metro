@@ -5,7 +5,7 @@ import { onSnapshot, doc , updateDoc } from "firebase/firestore";
 import { fadeIn, slideIn } from '../../utils/motion'
 import MetroD from '../../components/MetroD'
 import { AuthContext } from '../../Context/AuthContext'
-
+import { saveAs } from 'file-saver';
 
 function Arbaminch() {
     const[date, setDate]= useState("")
