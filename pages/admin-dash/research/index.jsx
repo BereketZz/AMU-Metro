@@ -1,18 +1,19 @@
 import React, {useContext,useState} from 'react'
 import { motion } from 'framer-motion'
-import { socials } from '../../constants'
-import styles from '../../styles'
-import { footerVariants, navVariants } from '../../utils/motion'
-import Dashboard from '../../components/Dashboard'
-import { AuthContext } from '../../Context/AuthContext'
-import { db, storage } from '../../firebase'
+import { socials } from '../../../constants'
+import styles from '../../../styles'
+import { footerVariants, navVariants } from '../../../utils/motion'
+import Dashboard from '../../../components/Dashboard'
+import { AuthContext } from '../../../Context/AuthContext'
+import { db, storage } from '../../../firebase'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateDoc, onSnapshot, setDoc,doc, arrayUnion, Timestamp, serverTimestamp } from 'firebase/firestore'
 import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {v4 as uuid} from "uuid"
+import HeadNav from '../../../components/HeadNav'
 
-function research() {
+function index() {
     const{isDarkMode, toggleTheme}= useContext(AuthContext)
     const[check, setCheck]= useState(false)
     const[inp, setInp]= useState({
@@ -86,7 +87,9 @@ function research() {
        }
   return (
     <Dashboard>
-  <div className={` w-full  sm:ml-[0%] ml-0  ${isDarkMode?"bg-primary-black":"bg-white"} overflow-hidden`}>
+      <HeadNav>
+   
+  <div className={` w-full  sm:ml-[5%] ml-0  ${isDarkMode?"bg-primary-black":"bg-white"} overflow-hidden`}>
  <div className="text-white flex justify-center items-center flex-col">
   <form className='h-full ' style={{width:"50%",}}>
   <motion.div
@@ -153,39 +156,7 @@ function research() {
 </form>
 </div>
 <br/>
-<motion.footer
-    variants={footerVariants}
-    initial="hidden"
-    whileInView="show"
-    className={`${styles.xPaddings} py-8 relative`}
-  >
-   
-    <div className={`${styles.innerWidth} mx-auto flex flex-col gap-8`}>
-     <br/><br/><br/>
 
-      <div className="flex flex-col">
-        <div className={`mb-[50px] h-[2px] ${isDarkMode?"bg-white opacity-10":"bg-gray-300"}`} />
-
-        <div className="flex items-center justify-center flex-wrap gap-10">
-        
-          <p className={`font-normal text-[14px] ${isDarkMode?"text-white":"text-black"}  `}>
-            Copyright © 2023 - AMU. All rights reserved.
-          </p>
-
-          <div className="flex gap-4">
-            {socials.map((social) => (
-              <img
-                key={social.name}
-                src={social.url}
-                alt={social.name}
-                className="w-[24px] h-[24px] object-contain cursor-pointer"
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </motion.footer>
   <ToastContainer 
     position="top-right"
     autoClose={5000}
@@ -200,9 +171,11 @@ function research() {
     
     />
 </div>
+     
+</HeadNav>
     </Dashboard>
   
   )
 }
 
-export default research
+export default index

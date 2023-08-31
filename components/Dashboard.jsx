@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../Context/AuthContext';
 import { auth } from '../firebase';
+import { socials } from '../constants';
 
 
 
@@ -21,7 +22,7 @@ function Dashboard({children}) {
      
       }
   return (
-    <div className={` ${isDarkMode?"bg-primary-black":"bg-white"} overflow-hidden`} >
+    <div className={`  ${isDarkMode?"bg-primary-black":"bg-white"} overflow-hidden`} >
 
     <div>
     
@@ -122,10 +123,44 @@ function Dashboard({children}) {
        </div>
     </aside>
     </div>
-    <main>
+    <main >
         {children}
     </main>
-    
+    <br/><br/><br/>
+    <motion.footer
+    variants={footerVariants}
+    initial="hidden"
+    whileInView="show"
+    className={`${styles.xPaddings} sm:ml-[10%] ml-0 py-8 relative`}
+  >
+   <div className={`${isDarkMode?"absolute w-[50%] inset-0 blackish-gradient-01":""}`} />
+   
+    <div className={`${styles.innerWidth} mx-auto flex flex-col gap-8`}>
+     <br/><br/><br/>
+
+      <div className="flex flex-col">
+        <div className={`mb-[50px] h-[2px] ${isDarkMode?"bg-white opacity-10":"bg-gray-300"}`} />
+
+        <div className="flex items-center justify-center flex-wrap gap-10">
+        
+          <p className={`font-normal text-[14px] ${isDarkMode?"text-white":"text-black"}  `}>
+            Copyright © 2023 - AMU. All rights reserved.
+          </p>
+
+          <div className="flex gap-4">
+            {socials.map((social) => (
+              <img
+                key={social.name}
+                src={social.url}
+                alt={social.name}
+                className="w-[24px] h-[24px] object-contain cursor-pointer"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </motion.footer>
     
     
     
