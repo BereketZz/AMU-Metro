@@ -10,6 +10,9 @@ export const AuthContextProvider=({children})=>{
     const [currentUser, setCurrentUser]= useState()
     const[isDarkMode, setIsDarkMode]= useState(true)
     const [res, setRes]= useState([])
+    const [sub, setSub]= useState([])
+    const [temp, setTemp]= useState(null)
+
     const toggleTheme= ()=>{
         return setIsDarkMode(!isDarkMode)
         }
@@ -32,8 +35,18 @@ export const AuthContextProvider=({children})=>{
                
             }  
         })
+        const subEmail= onSnapshot(doc(db, "sub","subscribe"), (doc)=>{
+         
+            if(doc.exists()){
+            
+                setSub(doc.data().email)
+                
+               
+            }  
+        })
 
-        return caller() && unSub()
+
+        return caller() && unSub() && subEmail()
           
   
       },[])
@@ -42,7 +55,7 @@ export const AuthContextProvider=({children})=>{
       
       return(
     
-          <AuthContext.Provider value={{currentUser,toggleTheme,setIsDarkMode, isDarkMode,res}}>
+          <AuthContext.Provider value={{currentUser,toggleTheme,setIsDarkMode, isDarkMode,res, sub, temp , setTemp}}>
               {children}
           </AuthContext.Provider>
   

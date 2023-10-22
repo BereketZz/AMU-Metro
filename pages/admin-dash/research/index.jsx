@@ -14,7 +14,7 @@ import {v4 as uuid} from "uuid"
 import HeadNav from '../../../components/HeadNav'
 
 function index() {
-    const{isDarkMode, toggleTheme}= useContext(AuthContext)
+    const{isDarkMode, toggleTheme,temp}= useContext(AuthContext)
     const[check, setCheck]= useState(false)
     const[inp, setInp]= useState({
         name:"",
@@ -23,6 +23,13 @@ function index() {
         desc:"",
         relevance:""
     })
+    const[fileUrl, setFileUrl]= useState("")
+    const[imgUrl, setImgUrl]= useState("")
+
+   
+    const [img, setImg]=useState("")
+
+    //temp!=null?setInp(temp):
     const handleChange= (e)=>{
         setInp((prev)=>{
             return{
@@ -35,15 +42,18 @@ function index() {
     
     const[data, setData]= useState("")
     const handleUpload=  async ()=>{
-        if(data){
+        if(data && img){
             
           setCheck(true)
           console.log("the file is here")
       
           const storageRef = ref(storage, `/research/${data.name+uuid()}`);
-          const uploadTask = uploadBytesResumable(storageRef, data);
+          const storageImg= ref(storage,`/research/Img/${img.name+uuid()}`)
+          const uploadFile = uploadBytesResumable(storageRef, data);
+          const uploadImg= uploadBytesResumable(storageImg, img);
+          var noman=""
       //
-       uploadTask.on('state_changed', 
+       uploadFile.on('state_changed', 
                 (snapshot) => {
                 // This function can be used to track upload progress
                  },
@@ -54,33 +64,67 @@ function index() {
               () => {
                 
               
-               getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
-                 // This code is to update the seen object's view property to false
-                  await updateDoc (doc(db, "research","rcol"), {
-                    researchs: arrayUnion({
-                        id:uuid(),
-                        name:inp.name,
-                        year:inp.year,
-                        title:inp.title,
-                        relevance:parseInt(inp.relevance),
-                        date:Timestamp.now(),
-                        file:downloadURL,
-                        desc:inp.desc
-                        
-    
-    
-                    })
-                  
-                    
-                });
-                toast("Research uploaded successfully!") 
-      
-                setCheck(false)
-                setData(null)
-            
+               getDownloadURL(uploadFile.snapshot.ref).then( async (downloadURL) => {
+               
+              noman=downloadURL
+              console.log("the file url is: "+ downloadURL)
+               
+             
                 });
               }
             );
+
+            uploadImg.on('state_changed', 
+                (snapshot) => {
+                // This function can be used to track upload progress
+                 },
+      
+              (error) => {
+                console.error('Error uploading file', error);
+              }, 
+              () => {
+                
+              
+               getDownloadURL(uploadImg.snapshot.ref).then( async (downloadURL) => {
+                 // This code is to update the seen object's view property to false
+        
+            await updateDoc (doc(db, "research","rcol"), {
+              researchs: arrayUnion({
+                  id:uuid(),
+                  name:inp.name,
+                  year:inp.year,
+                  title:inp.title,
+                  relevance:parseInt(inp.relevance),
+                  date:Timestamp.now(),
+                  file:noman,
+                  desc:inp.desc,
+                  img:downloadURL
+                  
+
+
+              })
+            
+              
+          });
+          toast.success("Research uploaded successfully") 
+      
+          setCheck(false)
+          setData(null)
+          setInp((prev)=>{
+            return{
+              name:"",
+              year:"",
+              title:"",
+              desc:"",
+              relevance:""
+            }
+        })
+          setImg(null)
+                });
+              }
+            );
+
+           
        
             
       }
@@ -96,25 +140,25 @@ function index() {
         variants={navVariants}
         initial="hidden"
         whileInView="show">
-    <h2  style={{color:'white', fontSize:"40px", marginTop:"50px"}}>Fill the Research Upload form</h2> <br/>
+    <h2 className={`${isDarkMode?"text-white":"text-gray-900"} mt-[50px] text-[40px]`} >Research Upload form</h2> <br/>
 
         </motion.div>
   <div class="mb-6">
-    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author(s) Name</label>
-    <input type="text"  id="name" name="name" onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Kaleb Abera" required />
+    <label for="name" class={`block mb-2 text-sm font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-900"} `}>Author(s) Name</label>
+    <input type="text"  id="name" name="name" onChange={handleChange} value={inp.name} class={isDarkMode? "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none":" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none" }placeholder="Kaleb Abera" required />
   </div>
   <div class="mb-6">
-    <label for="year" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Publication Year</label>
-    <input type="text" id="year" name="year" onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='2012' required/>
+    <label for="year" class={`block mb-2 text-sm font-medium  ${isDarkMode?"dark:text-white":"text-gray-900"} `}>Publication Year</label>
+    <input type="text" id="year" name="year" onChange={handleChange} value={inp.year} class={isDarkMode?"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700  outline-none":" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-greem-700 ouline-none" } placeholder='2012' required/>
   </div>
   <div class="mb-6">
-    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-    <input type="text" id="title" name="title" onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Arbaminch Metrological Dist' required/>
+    <label for="title" class={`block mb-2 text-sm font-medium ${isDarkMode?"dark:text-white":"text-gray-900"} `}>Title</label>
+    <input type="text" id="title" name="title" onChange={handleChange}  value={inp.title} class={isDarkMode?"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none":" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none" } placeholder='Arbaminch Metrological Dist' required/>
   </div>
 
 
-<label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Relevance Index (optional)</label>
-<select id="countries"  name="relevance" onChange={handleChange} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+<label for="countries" class={`block mb-2 text-sm font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-900"}`}>Relevance Index (optional)</label>
+<select id="countries"  name="relevance" onChange={handleChange} class={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-green-700 block w-full p-2.5 ${isDarkMode?"dark:bg-gray-700 dark:border-gray-600 dark:text-white":"bg-white border-gray-300 text-gray-500"}  dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-green-700`}>
  
   <option value="10">High</option>
   <option value="5">Medium</option>
@@ -122,17 +166,30 @@ function index() {
 </select> <br/>
 
 
-<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-<textarea id="message" name="desc" onChange={handleChange} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="To make a great impact on the ..."></textarea>
+<label for="message" class={`block mb-2 text-sm font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-900"} `}>Description</label>
+<textarea id="message" name="desc" onChange={handleChange} value={inp.desc} rows="4" class={`${isDarkMode?" border-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none ":"block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700 outline-none"}`} placeholder="To make a great impact on the ..."></textarea>
 <br/>
-<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{data?data.name:"Attach file"}</label>
+<div className='flex gap-6'>
+  <div>
+<label for="message" class={`block mb-2 text-sm font-medium ${isDarkMode?"dark:text-white":"text-gray-900"} `}>{data?data.name:"Attach file"}</label>
 <label htmlFor='file'>
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-15 h-10 ">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class={`w-15 h-10 ${isDarkMode?"text-white":"text-gray-900"} ${img? "text-green-700" :""}`}>
   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
 </svg>
 </label>
+</div>
+<div>
+<label for="message" class={`block mb-2 text-sm font-medium ${isDarkMode?"dark:text-white":"text-gray-900"} `}>{img?img.name:"Cover Photo"}</label>
+<label htmlFor='img'>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class={`w-15 h-10 ${isDarkMode?"text-white":"text-gray-900"} ${img? "text-green-700" :""}`}>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+</svg>
 
-<input type="file" id="file"  className='hidden' onChange={(e)=>setData(e.target.files[0])}/>
+</label>
+</div>
+</div>
+<input type="file" id="file"  className='hidden'  onChange={(e)=>setData(e.target.files[0])}/>
+<input type="file" id="img"  className='hidden'  onChange={(e)=>setImg(e.target.files[0])}/>
 <div className='w-full flex   justify-center'>
 <button type="button" disabled={check} onClick={handleUpload} className="w-[50%]  mt-[20px] flex items-center  justify-center h-fit py-[10px] px-[50px] bg-green-900 rounded-[10px] gap-[12px]">
          

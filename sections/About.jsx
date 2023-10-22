@@ -20,7 +20,7 @@ const About = () => {
    >
      
    <motion.div variants={textVariant(1.1)} className={` sm:w-[80%] w-[100%] ${isDarkMode?"text-gray-300":"text-gray-700"}  sm:text-[22px] text-[18px]`}>
-   | <span className="font-extrabold text-[24px]">L</span>orem ipsum dolor sit amet, consectetur adipisicing elit. Odit accusantium incidunt omnis obcaecati laborum, animi, eaque deleniti aut nihil, maxime sint deserunt suscipit cupiditate recusandae quia eum hic quisquam itaque nostrum voluptate harum. Eveniet, asperiores! Quia consequuntur, suscipit amet distinctio molestias sunt atque ad odio enim ex deleniti, excepturi mollitia.
+   | <span className="font-extrabold text-[22px]">A</span> cutting-edge project for the Arbaminch University Meteorology Department, our platform integrates station data, advanced research capabilities, and machine learning models. This web application empowers meteorologists and researchers with real-time weather insights and predictive analytics, enhancing their ability to monitor, analyze, and forecast weather patterns effectively
    </motion.div>
    <motion.img
    variants={fadeIn('up', 'tween',0.3,1)}

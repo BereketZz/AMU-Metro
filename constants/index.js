@@ -1,35 +1,35 @@
 export const exploreWorlds = [
   {
     id: 'world-1',
-    imgUrl: '/res.jpeg',
+    imgUrl: '/res2.svg',
     title: 'Researchs',
     url:"research"
   },
   {
     id: 'world-2',
-    imgUrl: '/graph.avif',
+    imgUrl: '/data.svg',
     title: 'Metro Data',
     url:"m-datas"
   },
   {
     id: 'world-3',
-    imgUrl: '/station.jpg',
+    imgUrl: '/articles.svg',
     title: 'Stations',
     url:"Stations"
   },
 
   {
     id: 'world-5',
-    imgUrl: '/analysis.jpg',
+    imgUrl: '/analysis.svg',
     title: 'Analysis',
     url:"Analysis"
   },
 ];
 
 export const startingFeatures = [
-  'Find a world that suits you and you want to enter',
-  'Enter the world by reading basmalah to be safe',
-  'No need to beat around the bush, just stay on the gas and have fun',
+  'Unearthing Station Data',
+  'Exploring Cutting-edge Research',
+  ' Crafting Insights through Machine Learning Analysis',
 ];
 
 export const newFeatures = [

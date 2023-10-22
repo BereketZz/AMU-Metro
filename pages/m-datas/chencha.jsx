@@ -60,118 +60,172 @@ class="relative overflow-x-auto">
     <thead class={`text-xs border border-gray-700 text-gray-700 uppercase ${isDarkMode?"bg-gray-50 dark:bg-gray-700 dark:text-gray-400":"bg-white text-gray-700"} `}>
         <tr>
             <th scope="col" class="px-6 py-3">
-                Product name
+               Date
             </th>
             <th scope="col" class="px-6 py-3">
-                Color
+                Time
             </th>
             <th scope="col" class="px-6 py-3">
-                Category
+                Temp_out
             </th>
             <th scope="col" class="px-6 py-3">
-                Price
+                Hi_Temp
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Low_Temp
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Out_Hum
             </th>
         </tr>
     </thead>
     <tbody>
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
             <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Apple MacBook Pro 17"
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                Silver
+               12:00a
             </td>
             <td class="px-6 py-4">
-                Laptop
+                22.8
             </td>
             <td class="px-6 py-4">
-                $2999
-            </td>
-        </tr>
-        <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700" }  dark:border-gray-700`}>
-            <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Apple MacBook Pro 17"
-            </th>
-            <td class="px-6 py-4">
-                Silver
+                22.9
             </td>
             <td class="px-6 py-4">
-                Laptop
+                22.3
             </td>
             <td class="px-6 py-4">
-                $2999
+                85
             </td>
 
         </tr>
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
             <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Apple MacBook Pro 17"
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                Silver
+               1:00a
             </td>
             <td class="px-6 py-4">
-                Laptop
+                22.8
             </td>
             <td class="px-6 py-4">
-                $2999
+                22.9
             </td>
+            <td class="px-6 py-4">
+                22.4
+            </td>
+            <td class="px-6 py-4">
+                60
+            </td>
+
         </tr>
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
             <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Apple MacBook Pro 17"
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                Silver
+               2:00a
             </td>
             <td class="px-6 py-4">
-                Laptop
+                22.8
             </td>
             <td class="px-6 py-4">
-                $2999
+                22.9
             </td>
+            <td class="px-6 py-4">
+                22.3
+            </td>
+            <td class="px-6 py-4">
+                86
+            </td>
+
         </tr>
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
             <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Apple MacBook Pro 17"
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                Silver
+               3:00a
             </td>
             <td class="px-6 py-4">
-                Laptop
+                22.8
             </td>
             <td class="px-6 py-4">
-                $2999
+                22.9
             </td>
-        </tr>
+            <td class="px-6 py-4">
+                22.3
+            </td>
+            <td class="px-6 py-4">
+                85
+            </td>
+
+        </tr>   
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
-            <th scope="row"class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Microsoft Surface Pro
+            <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                White
+               4:00a
             </td>
             <td class="px-6 py-4">
-                Laptop PC
+                22.7
             </td>
             <td class="px-6 py-4">
-                $1999
+                22.7
             </td>
+            <td class="px-6 py-4">
+                22.1
+            </td>
+            <td class="px-6 py-4">
+                83
+            </td>
+
         </tr>
         <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
             <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
-                Magic Mouse 2
+                04/24/16
             </th>
             <td class="px-6 py-4">
-                Black
+               5:00a
             </td>
             <td class="px-6 py-4">
-                Accessories
+                22.9
             </td>
             <td class="px-6 py-4">
-                $99
+                22.9
             </td>
+            <td class="px-6 py-4">
+                22.5
+            </td>
+            <td class="px-6 py-4">
+                85
+            </td>
+
+        </tr>
+        <tr class={`bg-white border ${isDarkMode?"dark:bg-gray-800":"bg-white text-gray-700"}  dark:border-gray-700`}>
+            <th scope="row" class={`px-6 py-4 font-medium text-gray-900 ${isDarkMode?"dark:text-white":"text-gray-700"} whitespace-nowrap `}>
+                04/24/16
+            </th>
+            <td class="px-6 py-4">
+               6:00a
+            </td>
+            <td class="px-6 py-4">
+                22.8
+            </td>
+            <td class="px-6 py-4">
+                22.9
+            </td>
+            <td class="px-6 py-4">
+                22.3
+            </td>
+            <td class="px-6 py-4">
+                85
+            </td>
+
         </tr>
     </tbody>
 </table>
