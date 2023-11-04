@@ -13,7 +13,7 @@ const Explore = () => {
   const{ isDarkMode, toggleTheme}= useContext(AuthContext)
   
   return(
-  <section className={`${styles.paddings}`} id="expore">
+  <section className={`${styles.paddings}`} id="explore">
     <motion.div
     variants={staggerContainer}
     initial="hidden"

@@ -68,23 +68,23 @@ const washingtonRef = db.collection('research').doc('rcol');
 
     
 <div className={` w-full     sm:ml-[5%] ml-0  overflow-hidden flex  items-center flex-col`}>
-<h3 className='text-gray-200 text-[22px] mt-[50px] w-[60%]'>Subscriptions and Email address</h3>
+<h3 className={`${isDarkMode? "text-gray-200":"text-gray-700"} text-[22px] mt-[50px] w-[60%]`}>Subscriptions and Email address</h3>
 
     
 <div class=" mt-[50px] w-[60%] relative overflow-x-auto shadow-md sm:rounded-lg">
-<div class="pb-4 bg-white dark:bg-gray-900">
-    <label for="table-search" class="sr-only">Search</label>
-    <div class="relative mt-1">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
+<div class={` ${isDarkMode?"dark:bg-gray-900":"bg-white"} pb-4  `}>
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative mt-1">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input onChange={handleSearchChange}  type="text" id="table-search" class={` block outline-none p-2 pl-10 text-sm border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-green-900 ${isDarkMode?" dark:text-white dark:bg-gray-700":" bg-white text-gray-700"}`} placeholder="Search for items" />
         </div>
-        <input onChange={handleSearchChange}  type="text" id="table-search" class="block outline-none p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-green-700" placeholder="Search for items" />
     </div>
-</div>
 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <thead class={` ${isDarkMode?"bg-gray-50 dark:bg-gray-700":"dark:bg-gray-200"} text-xs text-gray-700 uppercase  dark:text-gray-400`}>
         <tr>
          
            
@@ -104,7 +104,7 @@ const washingtonRef = db.collection('research').doc('rcol');
     <tbody>
         {
            data?.map(d=>{
-            return  <tr key={d.id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
+            return  <tr key={d.id} class={`${isDarkMode?"dark:bg-gray-800 dark:border-gray-700":"bg-white text-gray-700 dark:border-gray-300 "} bg-white border-b  `}>
            
            
             <td class="px-6 py-4">
