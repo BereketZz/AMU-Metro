@@ -22,7 +22,7 @@
 <h3>Installation</h3>
 <ol>
     <li>Clone the repository:
-        <pre><code>git clone https://github.com/yourusername/amu-metro.git</code></pre>
+        <pre><code>git clone https://github.com/BereketZz/AMU-Metro.git</code></pre>
     </li>
     <li>Navigate to the project directory:
         <pre><code>cd amu-metro</code></pre>
