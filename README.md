@@ -1,34 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>AMU-Metro</h1>
 
-## Getting Started
+<p>AMU-Metro is a web application developed for the Metrology Department of Arba Minch University. This application features a metrology station data archive, research articles access, and a machine learning model built with TensorFlow that predicts soil temperature. The project is built with Next.js, uses Firebase for the backend, and is deployed online.</p>
 
-First, run the development server:
+<h2>Features</h2>
+<ul>
+    <li><strong>Metrology Station Data Archive</strong>: Store and access metrology data.</li>
+    <li><strong>Research and Articles</strong>: View, download, and upload research papers and articles.</li>
+    <li><strong>Authentication</strong>: User sign-up, log-in, and profile management.</li>
+    <li><strong>Machine Learning Model</strong>: Integrated TensorFlow model to predict soil temperature.</li>
+</ul>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<h2>Getting Started</h2>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h3>Prerequisites</h3>
+<p>Ensure you have the following installed:</p>
+<ul>
+    <li><a href="https://nodejs.org/">Node.js</a></li>
+    <li><a href="https://nextjs.org/docs/getting-started">Next.js</a></li>
+</ul>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<h3>Installation</h3>
+<ol>
+    <li>Clone the repository:
+        <pre><code>git clone https://github.com/yourusername/amu-metro.git</code></pre>
+    </li>
+    <li>Navigate to the project directory:
+        <pre><code>cd amu-metro</code></pre>
+    </li>
+    <li>Install dependencies:
+        <pre><code>npm install</code></pre>
+    </li>
+</ol>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<h3>Firebase Setup</h3>
+<ol>
+    <li>Create a new Firebase project at <a href="https://firebase.google.com/">Firebase Console</a>.</li>
+    <li>Add a new web app to your Firebase project.</li>
+    <li>Copy the Firebase configuration and replace the placeholder in your project.</li>
+    <li>Enable Authentication and Firestore in your Firebase project.</li>
+</ol>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<h3>Running the App</h3>
+<pre><code>npm run dev</code></pre>
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2>Live Demo</h2>
+<p>Check out the live version of the application <a href="https://amu-metro-amu.netlify.app/">here</a>.</p>
